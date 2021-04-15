@@ -1,5 +1,7 @@
 # compounder
 
+Figure out when you can retire and long you can live on it.
+
 ## Project setup
 ```
 yarn install
