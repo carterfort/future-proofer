@@ -3,7 +3,7 @@
     <div class="container bg-white">
         <div class="pt-5">
           <div class="row">
-            <div class="col-4 small">
+            <div class="col-lg-4 small">
               <adjustments-controller
                 :values="adjustmentValues"
                 :prettyDollars="prettyDollars"
@@ -15,7 +15,7 @@
               ></output-table>
 
             </div>
-            <div class="col-sm-8">
+            <div class="col-lg-8">
               <div class="mb-3 d-flex">
                 <div class="form-check form-switch">
                   <input class="form-check-input" id="showAllYearsCheckbox" type="checkbox" v-model="showAllYears">
