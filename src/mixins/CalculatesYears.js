@@ -34,6 +34,12 @@ export default {
                     cost = (amount * (this.variableAnnualRetirementCost / 100));
                 }
 
+
+                let overrideYear = this.overrideYears.find(y => y.year == currentYear);
+                if (overrideYear){
+                    cost = overrideYear.cost
+                }
+
                 var isRetired = false;
 
                 if (i == 0) {
@@ -53,6 +59,10 @@ export default {
                     yearsRetired++;
                 }
 
+                if (overrideYear){
+                    console.log(amount)
+                }
+
                 amount -= fees;
 
                 if (amount <= 0 && !moneyHasRunOut) {
@@ -60,8 +70,7 @@ export default {
                     moneyHasRunOut = true;
                 }
 
-
-                years.push({
+                var yearToAdd = {
                     year: currentYear,
                     initial,
                     amount,
@@ -72,7 +81,11 @@ export default {
                     yearType,
                     cost,
                     growthAmount
-                })
+                };
+
+
+                years.push(yearToAdd)
+
                 i++
                 currentYear++;
             }
