@@ -24,10 +24,11 @@
 
                 <button class="btn btn-outline-primary ml-auto" @click="downloadCSV">Download CSV</button>
               </div>
-              <years-table 
+              <years-table
                 :years="displayYears"
                 :averageAnnualReturn="averageAnnualReturn"
                 :annualRetirementCost="annualRetirementCost"
+                @overrideYear="updateOverrideYears"
               ></years-table>
             </div>
           </div>
@@ -92,6 +93,7 @@ export default {
       variableAnnualRetirementCost : this.queryParam('variableAnnualRetirementCost', false),
       managementFees : this.queryParam('managementFees', 0.1),
       showAllYears : !!this.queryParam('showAllYears', false),
+      overrideYears : []
     }
   },
   methods : {
@@ -123,7 +125,15 @@ export default {
       document.body.appendChild(link); // Required for FF
 
       link.click(); // This will download the data file named "my_data.csv".
+    },
+    updateOverrideYears(yearToOverride){
+      let existingYear = this.overrideYears.findIndex( y => y.year == yearToOverride.year);
+      if ( existingYear >= 0){
+        this.overrideYears.splice(existingYear, 1, yearToOverride)
+      } else {
+        this.overrideYears.push(yearToOverride);
+      }
     }
-  }
+  },
 }
 </script>
