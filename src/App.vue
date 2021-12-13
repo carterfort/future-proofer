@@ -25,10 +25,7 @@
                 <button class="btn btn-outline-primary ml-auto" @click="downloadCSV">Download CSV</button>
               </div>
               <years-table
-                :years="displayYears"
-                :averageAnnualReturn="averageAnnualReturn"
-                :annualRetirementCost="annualRetirementCost"
-                @overrideYear="updateOverrideYears"
+                :years="years"
               ></years-table>
             </div>
           </div>
@@ -66,7 +63,8 @@ export default {
         startingAmount : this.startingAmount,
         annualInputAmount : this.annualInputAmount,
         managementFees : this.managementFees,
-        variableAnnualRetirementCost : this.variableAnnualRetirementCost
+        variableAnnualRetirementCost : this.variableAnnualRetirementCost,
+        savingsIncreasePercentage: this.savingsIncreasePercentage
       }
     },
     displayYears(){
@@ -92,8 +90,8 @@ export default {
       annualRetirementCost: this.queryParam('annualRetirementCost', 100000),
       variableAnnualRetirementCost : this.queryParam('variableAnnualRetirementCost', false),
       managementFees : this.queryParam('managementFees', 0.1),
-      showAllYears : !!this.queryParam('showAllYears', false),
-      overrideYears : []
+      showAllYears : !!this.queryParam('showAllYears', true),
+      savingsIncreasePercentage: this.queryParam('savingsIncreasePercentage', 5)
     }
   },
   methods : {
@@ -125,14 +123,6 @@ export default {
       document.body.appendChild(link); // Required for FF
 
       link.click(); // This will download the data file named "my_data.csv".
-    },
-    updateOverrideYears(yearToOverride){
-      let existingYear = this.overrideYears.findIndex( y => y.year == yearToOverride.year);
-      if ( existingYear >= 0){
-        this.overrideYears.splice(existingYear, 1, yearToOverride)
-      } else {
-        this.overrideYears.push(yearToOverride);
-      }
     }
   },
 }

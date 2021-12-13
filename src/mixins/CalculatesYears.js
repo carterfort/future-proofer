@@ -10,7 +10,7 @@ export default {
             var i = 0;
             var moneyHasRunOut = false;
             var yearsRetired = 0;
-            let retirementExposureStages = [1, .75, .5];
+            let retirementExposureStages = [1];
 
             while (i < (parseInt(this.targetWorkingYears) + parseInt(this.targetRetirementYears))) {
                 var yearType = false;
@@ -25,19 +25,19 @@ export default {
 
                 }
 
-                let growth = amount > 0 ? parseFloat(amount * growthAmount) : 0;
-                let income = parseFloat(this.annualInputAmount)
+                var growth = amount > 0 ? parseFloat(amount * growthAmount) : 0;
+                var income = parseFloat(this.annualInputAmount);
                 let initial = parseFloat(amount)
                 let fees = amount > 0 ? (parseFloat(this.managementFees) / 100) * amount : 0;
-                var cost = this.annualRetirementCost;
+                var cost = parseFloat(this.annualRetirementCost);
                 if (this.variableAnnualRetirementCost) {
-                    cost = (amount * (this.variableAnnualRetirementCost / 100));
+                    cost = (amount * (parseFloat(this.variableAnnualRetirementCost) / 100));
                 }
 
-
-                let overrideYear = this.overrideYears.find(y => y.year == currentYear);
-                if (overrideYear){
-                    cost = overrideYear.cost
+                // Calculate income based on increases from previous year
+                if (i > 0) {
+                    income = years[i - 1].income;
+                    income += income * (parseFloat(this.savingsIncreasePercentage) / 100)
                 }
 
                 var isRetired = false;
@@ -51,16 +51,12 @@ export default {
                 }
 
                 if (i < this.targetWorkingYears) {
-                    amount += growth + income
+                    amount += growth + (income)
                 } else {
                     amount += growth - cost;
                     income = 0;
                     isRetired = true;
                     yearsRetired++;
-                }
-
-                if (overrideYear){
-                    console.log(amount)
                 }
 
                 amount -= fees;
@@ -91,6 +87,8 @@ export default {
             }
 
             years[years.length - 1].yearType = "finalYear"
+            
+            years.reverse();
 
             return years;
         }

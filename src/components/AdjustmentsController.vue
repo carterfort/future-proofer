@@ -92,6 +92,12 @@
             <b-form-input v-model="annualInputAmount"></b-form-input>
         </b-form-group>
         <b-form-group
+            label="How much will you increase savings per year? (%)"
+            label-for="input-1"
+        >
+            <b-form-input v-model="savingsIncreasePercentage"></b-form-input>
+        </b-form-group>
+        <b-form-group
             label="What are you paying in management fees? (%)"
             label-for="input-1"
         >
@@ -138,6 +144,9 @@ export default {
         variableAnnualRetirementCost(){
             this.$emit('update', {field: 'variableAnnualRetirementCost', value: this.variableAnnualRetirementCost} );
         },
+        savingsIncreasePercentage(){
+            this.$emit('update', {field: 'savingsIncreasePercentage', value: this.savingsIncreasePercentage});
+        },
         totalYearsLeft(){
             this.setTargetRetirementYears()
         },
@@ -164,6 +173,7 @@ export default {
             'annualInputAmount' : this.values['annualInputAmount'],
             'managementFees' : this.values['managementFees'],
             'variableAnnualRetirementCost' : this.values['variableAnnualRetirementCost'],
+            'savingsIncreasePercentage' : this.values['savingsIncreasePercentage'],
             totalYearsLeft : 0,
             useVariableAnnualRetirementCosts : !!this.values['variableAnnualRetirementCost'],
         }

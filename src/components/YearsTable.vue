@@ -12,22 +12,35 @@
         </thead>
         <tbody>
             <tr 
-                v-for="yearObj in years" 
-                :key="yearObj.year" 
-                :yearObj="yearObj" 
-                is="StaticYearRow"
-                @overrideYear="overrideYear"
-            ></tr>
+                v-for="{year, amount, growth, income, initial, isRetired, fees, growthAmount, cost} in years" :key="year"
+                :class="{ '' : isRetired && amount > 0, 'bg-danger text-white' : amount < 0}"
+                >
+                <td>{{ year }}</td>
+                <td class="text-right">{{initial | dollars}}</td>
+                <td class="text-right">
+                <span class="text-danger" v-if="isRetired">
+                    -{{cost | dollars}}
+                </span>
+                <span class="text-success" v-else>
+                    +{{income | dollars}}
+                </span>
+                </td>
+                <td class="text-right">{{growth | dollars}} ({{(growthAmount*100).toFixed(0)}}%)</td>
+                <td class="text-right text-danger">-{{fees | dollars}}</td>
+                <td class="text-right">{{amount | dollars}}</td>
+            </tr>
+
         </tbody>
     </table>
 </template>
 
 <script>
-import StaticYearRow from './StaticYearRow';
+import Currency from '../mixins/Currency';
 
 export default {
-    props : ['years', 'averageAnnualReturn', 'annualRetirementCost'],
-    components : {StaticYearRow},
+    props : ['years'],
+    components : {},
+    mixins : [Currency],
     data(){
         return {
 
@@ -37,9 +50,7 @@ export default {
 
     },
     methods : {
-        overrideYear(yearToOverride){
-            this.$emit('overrideYear', yearToOverride);
-        }
+
     }
 }
 </script>

@@ -4,7 +4,7 @@
         <td class="text-right">{{initial | dollars}}</td>
         <td class="text-right">
         <span class="text-danger" v-if="isRetired" >
-            - <input class="cost-override" @input="overrideYear" :value="cost" />
+            -{{cost | dollars}}
         </span>
         <span class="text-success" v-else>
             +{{income | dollars}}
@@ -40,10 +40,6 @@ export default {
 
     },
     methods : {
-        overrideYear(event){
-            let year = JSON.parse(JSON.stringify(this.$data));
-            this.$emit('overrideYear', {...year, cost :  parseFloat(event.target.value)})
-        }
     }
 }
 </script>
