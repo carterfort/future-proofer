@@ -25,7 +25,7 @@
                 <button class="btn btn-outline-primary ml-auto" @click="downloadCSV">Download CSV</button>
               </div>
               <years-table
-                :years="years"
+                :years="displayYears"
               ></years-table>
             </div>
           </div>
@@ -90,7 +90,7 @@ export default {
       annualRetirementCost: this.queryParam('annualRetirementCost', 100000),
       variableAnnualRetirementCost : this.queryParam('variableAnnualRetirementCost', false),
       managementFees : this.queryParam('managementFees', 0.1),
-      showAllYears : !!this.queryParam('showAllYears', true),
+      showAllYears : !!this.queryParam('showAllYears', false),
       savingsIncreasePercentage: this.queryParam('savingsIncreasePercentage', 5)
     }
   },

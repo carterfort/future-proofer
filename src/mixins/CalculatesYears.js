@@ -88,8 +88,6 @@ export default {
 
             years[years.length - 1].yearType = "finalYear"
             
-            years.reverse();
-
             return years;
         }
     }
