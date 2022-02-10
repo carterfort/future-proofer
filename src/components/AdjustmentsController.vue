@@ -95,7 +95,11 @@
             label="How much will you increase savings per year? (%)"
             label-for="input-1"
         >
-            <b-form-input v-model="savingsIncreasePercentage"></b-form-input>
+            <b-form-input 
+                v-model="savingsIncreasePercentage"
+                type="number"
+                step="0.5"
+            ></b-form-input>
         </b-form-group>
         <b-form-group
             label="What are you paying in management fees? (%)"
